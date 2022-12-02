@@ -1,14 +1,21 @@
 import React, { useState, useContext } from "react"
-import { AuthContext } from "../../contexts/auth";
 
-import { useNavigate } from "react-router-dom";
+import { AuthContext, ContextType } from "../../contexts/auth";
+
+import { 
+    FormButton, 
+    FormContainer, 
+    FormField, 
+    FormInput, 
+    FormLabel, 
+    LinkToRegister, 
+    LoginContainer 
+} from "./styles/styles";
 
 
 export function LoginPage(){
 
-    const navigate = useNavigate();
-
-    const {authenticated, login, setUser} = useContext<any>(AuthContext);
+    const { login } = useContext(AuthContext) as ContextType;
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -18,14 +25,15 @@ export function LoginPage(){
         login(email, password);
     }
 
-
     return (
-        <div id="container">
+        <LoginContainer>
             <h1>Login Do Sistema</h1>
-            <form onSubmit={handleSumit}>
-                <div className="field">
-                    <label htmlFor="email">E-mail</label>
-                    <input 
+            <FormContainer onSubmit={handleSumit}>
+                <FormField>
+                    <FormLabel htmlFor="email">
+                        E-mail
+                    </FormLabel>
+                    <FormInput 
                         type="email" 
                         name="email" 
                         id="email" 
@@ -33,10 +41,12 @@ export function LoginPage(){
                         onChange={(e)=> setEmail(e.target.value)}
                         placeholder="Seu E-mail"
                     />
-                </div>
-                <div className="field">
-                    <label htmlFor="password">Senha</label>
-                    <input 
+                </FormField>
+                <FormField>
+                    <FormLabel htmlFor="password">
+                        Senha
+                    </FormLabel>
+                    <FormInput 
                         type="password" 
                         name="password" 
                         id="password" 
@@ -44,14 +54,14 @@ export function LoginPage(){
                         onChange={(e)=> setPassword(e.target.value)}
                         placeholder="Sua Senha"
                     />
-                </div>
-                    <button type="submit">
+                </FormField>
+                    <FormButton type="submit">
                         Entrar
-                    </button>
-            </form>
-            <a href="/register">
+                    </FormButton>
+            </FormContainer>
+            <LinkToRegister href="/register">
                 Registre-se
-            </a>
-        </div>
+            </LinkToRegister>
+        </LoginContainer>
     )
 }

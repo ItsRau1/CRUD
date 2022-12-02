@@ -1,21 +1,28 @@
-import React, { useState, useContext } from "react"
-import { AuthContext } from "../../contexts/auth";
-
+import React, { useState } from "react"
 import { useNavigate } from "react-router-dom";
+
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../../services/firebaseConfig";
+
+import { 
+    FormButton, 
+    FormField, 
+    FormInput, 
+    FormLabel, 
+    FormRegister, 
+    LinkToLogin, 
+    RegisterContainer 
+} from "./styles/styles";
 
 
 export function RegisterPage(){
 
     const navigate = useNavigate();
 
-    const {authenticated, login, setUser} = useContext<any>(AuthContext);
-
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
-    const [createUserWithEmailAndPassword, user, loading, error] =
+    const [createUserWithEmailAndPassword] =
     useCreateUserWithEmailAndPassword(auth);
 
 
@@ -27,12 +34,14 @@ export function RegisterPage(){
 
 
     return (
-        <div id="container">
+        <RegisterContainer>
             <h1>Se Registre</h1>
-            <form onSubmit={handleSumit}>
-                <div className="field">
-                    <label htmlFor="email">E-mail</label>
-                    <input 
+            <FormRegister onSubmit={handleSumit}>
+                <FormField>
+                    <FormLabel htmlFor="email">
+                        E-mail
+                    </FormLabel>
+                    <FormInput 
                         type="email" 
                         name="email" 
                         id="email" 
@@ -40,10 +49,12 @@ export function RegisterPage(){
                         onChange={(e)=> setEmail(e.target.value)}
                         placeholder="Seu E-mail"
                     />
-                </div>
-                <div className="field">
-                    <label htmlFor="password">Senha</label>
-                    <input 
+                </FormField>
+                <FormField>
+                    <FormLabel htmlFor="password">
+                        Senha
+                    </FormLabel>
+                    <FormInput 
                         type="password" 
                         name="password" 
                         id="password" 
@@ -51,14 +62,14 @@ export function RegisterPage(){
                         onChange={(e)=> setPassword(e.target.value)}
                         placeholder="Sua Senha"
                     />
-                </div>
-                    <button type="submit">
-                        Entrar
-                    </button>
-            </form>
-            <a href="/login">
+                </FormField>
+                    <FormButton type="submit">
+                        Registrar-se
+                    </FormButton>
+            </FormRegister>
+            <LinkToLogin href="/login">
                 Voltar ao Login
-            </a>
-        </div>
+            </LinkToLogin>
+        </RegisterContainer>
     )
 }

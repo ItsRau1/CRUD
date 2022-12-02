@@ -1,14 +1,23 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, ChildContextProvider, PropsWithChildren, ReactElement } from "react";
 
 import { useNavigate } from "react-router-dom";
 import { useSignInWithEmailAndPassword, useSignOut  } from "react-firebase-hooks/auth";
 import { auth } from "../services/firebaseConfig"; 
+import { UserCredential } from "firebase/auth";
 
-export const AuthContext = createContext();
+export type ContextType = {
+    authenticated?: boolean;
+    loading?: boolean;
+    login: (email:string, password:string)=>void;
+    logout: ()=>void;
+    user?: UserCredential | undefined;
+}
 
-export const AuthProvider:any = ({children}:any) =>{
+export const AuthContext = createContext<ContextType | null>(null);
+
+export const AuthProvider : React.FC<React.ReactNode> = ({children}) =>{ // Resolve Children Type
     const navigate = useNavigate();
-    const [currentUser, setCurrentUser] = useState<any>(null);
+    const [currentUser, setCurrentUser] = useState<String | null>(null);
 
     useEffect(()=>{
         const info = localStorage.getItem("userInfo")
@@ -24,7 +33,7 @@ export const AuthProvider:any = ({children}:any) =>{
 
 
 
-    const login:any = (email:any, password:any) => {
+    const login:(email:string, password:string)=>void = (email:string, password:string) => {
         const infoUser = { email, password}
         signInWithEmailAndPassword(email, password)
         navigate("/")
@@ -33,7 +42,7 @@ export const AuthProvider:any = ({children}:any) =>{
     
     const [ signOut ] = useSignOut(auth)
 
-    function logout () {
+    const logout = () => {
         signOut()
         localStorage.removeItem("userInfo")
         navigate("/login");
