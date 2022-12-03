@@ -1,6 +1,8 @@
 import React, {useContext} from "react";
 
-import { AuthContext, ContextType } from "../../contexts/auth";
+import { ContextType } from "../../@types/types";
+
+import { AuthContext} from "../../contexts/auth";
 
 import { 
     ButtonLogout, 
@@ -9,17 +11,25 @@ import {
 
 export function HomePage(){
 
-    const { logout } = useContext(AuthContext) as ContextType;
+    const { logout, update } = useContext(AuthContext) as ContextType;
 
     const handleLogout = (e:React.SyntheticEvent) => {
         e.preventDefault();
         logout();
     }
 
+    const handleUpdate = (e:React.SyntheticEvent) => {
+        e.preventDefault();
+        update();
+    }
+
     return(
         <ContainerHome>
             <ButtonLogout onClick={handleLogout}>
                 Sair
+            </ButtonLogout>
+            <ButtonLogout onClick={handleUpdate}>
+                Atualizar
             </ButtonLogout>
         </ContainerHome>
     )

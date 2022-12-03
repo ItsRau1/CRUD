@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react"
 
-import { AuthContext, ContextType } from "../../contexts/auth";
+import { ContextType } from "../../@types/types";
+
+import { AuthContext } from "../../contexts/auth";
 
 import { 
     FormButton, 

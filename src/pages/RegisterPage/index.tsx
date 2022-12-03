@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { useNavigate } from "react-router-dom";
 
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
@@ -14,22 +14,23 @@ import {
     RegisterContainer 
 } from "./styles/styles";
 
+import { AuthContext } from "../../contexts/auth";
+
+import { ContextType } from "../../@types/types";
+
 
 export function RegisterPage(){
 
-    const navigate = useNavigate();
+    const { register } = useContext(AuthContext) as ContextType;
 
+    const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-
-    const [createUserWithEmailAndPassword] =
-    useCreateUserWithEmailAndPassword(auth);
 
 
     const handleSumit = (e:React.SyntheticEvent) => {
         e.preventDefault();
-        createUserWithEmailAndPassword(email, password);
-        navigate("/login")
+        register(email, password);
     }
 
 
