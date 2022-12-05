@@ -11,7 +11,7 @@ import {
 
 export function HomePage(){
 
-    const { logout, update } = useContext(AuthContext) as ContextType;
+    const { logout, user } = useContext(AuthContext) as ContextType;
 
     const handleLogout = (e:React.SyntheticEvent) => {
         e.preventDefault();
@@ -20,7 +20,8 @@ export function HomePage(){
 
     const handleUpdate = (e:React.SyntheticEvent) => {
         e.preventDefault();
-        update();
+        // update();
+        console.log(user)
     }
 
     return(

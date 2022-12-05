@@ -17,6 +17,7 @@ import {
 import { AuthContext } from "../../contexts/auth";
 
 import { ContextType } from "../../@types/types";
+import axios from "axios";
 
 
 export function RegisterPage(){
@@ -30,17 +31,27 @@ export function RegisterPage(){
 
     const handleSumit = (e:React.SyntheticEvent) => {
         e.preventDefault();
-        register(email, password);
+        register(email, password, name);
     }
-
 
     return (
         <RegisterContainer>
             <h1>Se Registre</h1>
             <FormRegister onSubmit={handleSumit}>
                 <FormField>
+                    <FormLabel htmlFor="name">
+                        Seu nome
+                    </FormLabel>
+                    <FormInput
+                    type="text"
+                    name="name"
+                    placeholder="Seu Nome"
+                    onChange={(e)=> setName(e.target.value)}
+                    />
+                </FormField>
+                <FormField>
                     <FormLabel htmlFor="email">
-                        E-mail
+                        Seu e-mail
                     </FormLabel>
                     <FormInput 
                         type="email" 
@@ -53,7 +64,7 @@ export function RegisterPage(){
                 </FormField>
                 <FormField>
                     <FormLabel htmlFor="password">
-                        Senha
+                        Sua senha
                     </FormLabel>
                     <FormInput 
                         type="password" 

@@ -34,22 +34,25 @@ export const AuthProvider : React.FC<React.ReactNode> = ({children}) =>{ // Reso
     const [createUserWithEmailAndPassword, ] =
     useCreateUserWithEmailAndPassword(auth);
 
-    const register = (email:string, password:string) => {
+    const register = (email:string, password:string, name:string) => {
         createUserWithEmailAndPassword(email, password);
+        setName(name) // Register Flow
         navigate("/login")
     }
 
     // Login
-
+    
     const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
-
+    
 
     const login:(email:string, password:string)=>void = (email:string, password:string) => {
-        const infoUser = { email, password}
+        const infoUser = { email, password }
         signInWithEmailAndPassword(email, password)
-        navigate("/")
         localStorage.setItem("userInfo", JSON.stringify(infoUser))
+        update(name) // Resgister Flow
+        navigate("/")
+
     }
 
     // Logout
@@ -61,16 +64,16 @@ export const AuthProvider : React.FC<React.ReactNode> = ({children}) =>{ // Reso
         localStorage.removeItem("userInfo")
         navigate("/login");
     }
-
-    // Update Profile
-
-    const [ updateProfile ] = useUpdateProfile(auth)
-
     
-    const update = () => {
+    // Update Profile
+    
+    const [ updateProfile ] = useUpdateProfile(auth)
+    const [name, setName] = useState<string>("");
+    
+    
+    function update (name:string) {
         const userUpdated = {
-            displayName: "Raul",
-            photoURL: "https://images.tcdn.com.br/img/img_prod/106020/adesivo_independente_futebol_e_samba_2979_1_20201006221403.jpg"
+            displayName: name,
         }
         updateProfile(userUpdated);
     }
