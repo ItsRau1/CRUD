@@ -1,23 +1,24 @@
 import React, { useContext, useState } from "react"
-import { useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../../services/firebaseConfig";
 
 import { 
+    AsideLabel,
     FormButton, 
     FormField, 
     FormInput, 
     FormLabel, 
     FormRegister, 
-    LinkToLogin, 
+    FormTitle, 
+    LinkField, 
     RegisterContainer 
 } from "./styles/styles";
 
 import { AuthContext } from "../../contexts/auth";
 
 import { ContextType } from "../../@types/types";
-import axios from "axios";
 
 
 export function RegisterPage(){
@@ -36,52 +37,47 @@ export function RegisterPage(){
 
     return (
         <RegisterContainer>
-            <h1>Se Registre</h1>
+            <AsideLabel></AsideLabel>
             <FormRegister onSubmit={handleSumit}>
+                <FormTitle>
+                    <h1>Registre-se</h1>
+                    <p>Venha utilizar o melhor CRUD</p>
+                </FormTitle>
                 <FormField>
-                    <FormLabel htmlFor="name">
-                        Seu nome
-                    </FormLabel>
                     <FormInput
                     type="text"
                     name="name"
                     placeholder="Seu Nome"
+                    title="Insira seu nome"
                     onChange={(e)=> setName(e.target.value)}
                     />
-                </FormField>
-                <FormField>
-                    <FormLabel htmlFor="email">
-                        Seu e-mail
-                    </FormLabel>
                     <FormInput 
                         type="email" 
                         name="email" 
-                        id="email" 
+                        title="Insira seu E-mail"
                         value={email}
                         onChange={(e)=> setEmail(e.target.value)}
                         placeholder="Seu E-mail"
                     />
-                </FormField>
-                <FormField>
-                    <FormLabel htmlFor="password">
-                        Sua senha
-                    </FormLabel>
                     <FormInput 
                         type="password" 
                         name="password" 
-                        id="password" 
+                        title="Insira sua senha"
                         value={password}
                         onChange={(e)=> setPassword(e.target.value)}
                         placeholder="Sua Senha"
                     />
                 </FormField>
-                    <FormButton type="submit">
+
+                    <FormButton type="submit" title="Registrar-se">
                         Registrar-se
-                    </FormButton>
+                    </FormButton>   
+                    <LinkField>
+                        <NavLink to="/login" title="Login">
+                            Voltar ao Login
+                        </NavLink>
+                    </LinkField>
             </FormRegister>
-            <LinkToLogin href="/login">
-                Voltar ao Login
-            </LinkToLogin>
         </RegisterContainer>
     )
 }

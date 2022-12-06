@@ -12,13 +12,14 @@ import { HomePage } from "./pages/HomePage"
 
 import { AuthProvider, AuthContext } from "./contexts/auth"
 import { RegisterPage } from "./pages/RegisterPage"
+import { LoadingPage } from "./pages/LoadingPage"
 
 export function AppRoutes () {
     const Private = ({children}:any)=>{
         const { authenticated, loading }:any = useContext(AuthContext);
 
         if(loading){
-            return <div>Carregando...</div>
+            return <LoadingPage />
         }
 
         if (!authenticated){

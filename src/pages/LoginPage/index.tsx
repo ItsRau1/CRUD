@@ -1,16 +1,18 @@
 import React, { useState, useContext } from "react"
+import { NavLink } from "react-router-dom";
 
 import { ContextType } from "../../@types/types";
 
 import { AuthContext } from "../../contexts/auth";
 
 import { 
+    AsideLabel,
     FormButton, 
     FormContainer, 
     FormField, 
     FormInput, 
-    FormLabel, 
-    LinkToRegister, 
+    FormTitle, 
+    LinkField, 
     LoginContainer 
 } from "./styles/styles";
 
@@ -29,12 +31,13 @@ export function LoginPage(){
 
     return (
         <LoginContainer>
-            <h1>Login Do Sistema</h1>
+            <AsideLabel></AsideLabel>
             <FormContainer onSubmit={handleSumit}>
+                <FormTitle>
+                    <h1>Entrar</h1>
+                    <p>Venha utilizar o melhor CRUD</p>
+                </FormTitle>
                 <FormField>
-                    <FormLabel htmlFor="email">
-                        E-mail
-                    </FormLabel>
                     <FormInput 
                         type="email" 
                         name="email" 
@@ -43,11 +46,6 @@ export function LoginPage(){
                         onChange={(e)=> setEmail(e.target.value)}
                         placeholder="Seu E-mail"
                     />
-                </FormField>
-                <FormField>
-                    <FormLabel htmlFor="password">
-                        Senha
-                    </FormLabel>
                     <FormInput 
                         type="password" 
                         name="password" 
@@ -60,10 +58,13 @@ export function LoginPage(){
                     <FormButton type="submit">
                         Entrar
                     </FormButton>
+                    <LinkField>
+                        <p>Não tem uma conta? </p>
+                        <NavLink to="/register" title="Registre-se">
+                            Registre-se
+                        </NavLink>
+                    </LinkField>
             </FormContainer>
-            <LinkToRegister href="/register">
-                Registre-se
-            </LinkToRegister>
         </LoginContainer>
     )
 }
