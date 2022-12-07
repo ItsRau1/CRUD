@@ -45,6 +45,7 @@ export function LoginPage(){
                         value={email}
                         onChange={(e)=> setEmail(e.target.value)}
                         placeholder="Seu E-mail"
+                        required
                     />
                     <FormInput 
                         type="password" 
@@ -53,6 +54,7 @@ export function LoginPage(){
                         value={password}
                         onChange={(e)=> setPassword(e.target.value)}
                         placeholder="Sua Senha"
+                        required
                     />
                 </FormField>
                     <FormButton type="submit">

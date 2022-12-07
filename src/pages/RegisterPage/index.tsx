@@ -45,11 +45,12 @@ export function RegisterPage(){
                 </FormTitle>
                 <FormField>
                     <FormInput
-                    type="text"
-                    name="name"
-                    placeholder="Seu Nome"
-                    title="Insira seu nome"
-                    onChange={(e)=> setName(e.target.value)}
+                        type="text"
+                        name="name"
+                        placeholder="Seu Nome"
+                        title="Insira seu nome"
+                        onChange={(e)=> setName(e.target.value)}
+                        required
                     />
                     <FormInput 
                         type="email" 
@@ -58,6 +59,7 @@ export function RegisterPage(){
                         value={email}
                         onChange={(e)=> setEmail(e.target.value)}
                         placeholder="Seu E-mail"
+                        required
                     />
                     <FormInput 
                         type="password" 
@@ -66,6 +68,7 @@ export function RegisterPage(){
                         value={password}
                         onChange={(e)=> setPassword(e.target.value)}
                         placeholder="Sua Senha"
+                        required
                     />
                 </FormField>
 

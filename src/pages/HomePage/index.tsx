@@ -1,5 +1,5 @@
-import { PencilSimpleLine, SignOut, User, XCircle } from "phosphor-react";
-import React, {useContext, useState} from "react";
+import { PencilSimpleLine, SignOut, User, UserCircle, UserCircleGear, XCircle } from "phosphor-react";
+import React, {useContext, useEffect, useState} from "react";
 
 import { ContextType } from "../../@types/types";
 
@@ -12,6 +12,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 
 import { 
     Avatar,
+    AvatarDefault,
     ContainerHome, 
     DropdownMenuContainer, 
     InfoField, 
@@ -19,8 +20,6 @@ import {
     LogoField, 
     NavBar,
     RadixUIStyle,
-    ToAvatar,
-    ToLogout
 } from "./styles/styles";
 
 
@@ -28,6 +27,8 @@ export function HomePage(){
 
     
     const { logout, user } = useContext(AuthContext) as ContextType;
+
+    const [userName, setUserName] = useState<string>("")
     
     const handleLogout = (e:React.SyntheticEvent) => {
         e.preventDefault();
@@ -35,7 +36,11 @@ export function HomePage(){
     }
 
     const avatar = user!.user.photoURL
-    const userName:string = user!.user.displayName
+
+    useEffect(()=>{
+        setUserName(user!.user.displayName)
+    },[])
+    
 
     
     const handleEdit = (e:React.SyntheticEvent) =>{
@@ -54,7 +59,7 @@ export function HomePage(){
                     <DropdownMenuContainer>
                         <DropdownMenu.Root>
                             <DropdownMenu.Trigger asChild>
-                                    { avatar ?  <Avatar  src={avatar} alt="" /> : <User /> }
+                                { avatar ?  <Avatar src={avatar} alt="" /> : <AvatarDefault><UserCircleGear size={50} color="#004457"/></AvatarDefault>}
                             </DropdownMenu.Trigger>
                             <DropdownMenu.Portal>
                                 <DropdownMenu.Content className="DropdownMenuContent" sideOffset={5}>
@@ -62,45 +67,7 @@ export function HomePage(){
                                     className="DropdownMenuItem"
                                     onClick={handleEdit}
                                     >
-                                        <Dialog.Root>
-                                            <Dialog.Trigger asChild>
-                                                <button className="ButtonTrigger">
-                                                    Editar Perfil
-                                                </button>
-                                            </Dialog.Trigger>
-                                            <Dialog.Portal>
-                                                <Dialog.Overlay className="DialogOverlay" />
-                                                <Dialog.Content className="DialogContent">
-                                                    <Dialog.Title className="DialogTitle">Editar Perfil</Dialog.Title>
-                                                    <Dialog.Description className="DialogDescription">
-                                                        Faca mudanças no seu perfil aqui, clique em concluir para salvar
-                                                    </Dialog.Description>
-                                                    <fieldset className="Fieldset">
-                                                        <label className="Label" htmlFor="name">
-                                                            Nome
-                                                        </label>
-                                                        <input className="Input" id="name" defaultValue={userName} />
-                                                    </fieldset>
-                                                    <fieldset className="Fieldset">
-                                                        <label className="Label" htmlFor="username">
-                                                            Username
-                                                        </label>
-                                                        <input className="Input" id="username" defaultValue="@peduarte" />
-                                                    </fieldset>
-                                                    <div style={{ display: 'flex', marginTop: 25, justifyContent: 'flex-end' }}>
-                                                        <Dialog.Close asChild>
-                                                            <button className="Button green">Save changes</button>
-                                                        </Dialog.Close>
-                                                    </div>
-                                                    <Dialog.Close asChild>
-                                                        <button className="IconButton" aria-label="Close">
-                                                            <XCircle size={26} />
-                                                        </button>
-                                                    </Dialog.Close>
-                                                </Dialog.Content>
-                                            </Dialog.Portal>
-                                        </Dialog.Root>
-                                        
+                                        Editar Perfil
                                         <div className="RightSlot"> <PencilSimpleLine /> </div>
                                     </DropdownMenu.Item>
                                     <DropdownMenu.Item 
