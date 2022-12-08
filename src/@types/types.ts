@@ -6,6 +6,6 @@ export type ContextType = {
     register: (email:string, password:string, name:string)=>void;
     login: (email:string, password:string)=>void;
     logout: ()=>void;
-    update: (name:string)=>void;
+    edit: (name:string, url?:string)=>void;
     user?: UserCredential | undefined;
 }

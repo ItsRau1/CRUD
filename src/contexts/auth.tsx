@@ -50,7 +50,7 @@ export const AuthProvider : React.FC<React.ReactNode> = ({children}) =>{ // Reso
         const infoUser = { email, password }
         signInWithEmailAndPassword(email, password)
         localStorage.setItem("userInfo", JSON.stringify(infoUser))
-        update(name) // Resgister Flow
+        edit(name) // Resgister Flow
         navigate("/")
 
     }
@@ -65,23 +65,35 @@ export const AuthProvider : React.FC<React.ReactNode> = ({children}) =>{ // Reso
         navigate("/login");
     }
     
-    // Update Profile
+    // Edit Profile
     
     const [ updateProfile ] = useUpdateProfile(auth)
+
     const [name, setName] = useState<string>("");
     
     
-    function update (name:string) {
-        const userUpdated = {
-            displayName: name,
+    function edit (name:string, url?:string) {
+        
+        const userUpdated = ()=>{
+            if(url){
+                return {
+                    displayName: name,
+                    photoURL: url,
+                }
+            } else {
+                return {
+                    displayName: name,
+                }
+            }
         }
-        updateProfile(userUpdated);
+
+        updateProfile(userUpdated());
     }
     
     // Return 
 
     return (
-        <AuthContext.Provider value={{authenticated: !!user , loading, login, logout, user, register, update }}>
+        <AuthContext.Provider value={{authenticated: !!user , loading, login, logout, user, register, edit }}>
             {children}
         </AuthContext.Provider>
     )
