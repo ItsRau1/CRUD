@@ -22,11 +22,19 @@ export const AuthProvider : React.FC<React.ReactNode> = ({children}) =>{ // Reso
 
     useEffect(()=>{
         const info = localStorage.getItem("userInfo")
+        const infoTemporary = sessionStorage.getItem("userInfo")
+
         if(info){
             const currentUser = JSON.parse(info)
             signInWithEmailAndPassword(currentUser.email, currentUser.password)
             navigate("/")
+        } else if (infoTemporary){
+            const currentUser = JSON.parse(infoTemporary)
+            signInWithEmailAndPassword(currentUser.email, currentUser.password)
+            navigate("/")
         }
+
+
     }, [])
 
     // Register
@@ -50,12 +58,12 @@ export const AuthProvider : React.FC<React.ReactNode> = ({children}) =>{ // Reso
         const infoUser = { email, password }
         signInWithEmailAndPassword(email, password)
         edit(name) // Resgister Flow
-        if (stayLogged === true){
+        if (stayLogged === true) {
             localStorage.setItem("userInfo", JSON.stringify(infoUser))
-            navigate("/")
         } else {
-            navigate("/")
+            sessionStorage.setItem("userInfo", JSON.stringify(infoUser))
         }
+        navigate("/")
 
     }
 
