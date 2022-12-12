@@ -46,12 +46,16 @@ export const AuthProvider : React.FC<React.ReactNode> = ({children}) =>{ // Reso
     useSignInWithEmailAndPassword(auth);
     
 
-    const login:(email:string, password:string)=>void = (email:string, password:string) => {
+    const login:(email:string, password:string, stayLogged:boolean)=>void = (email:string, password:string, stayLogged:boolean) => {
         const infoUser = { email, password }
         signInWithEmailAndPassword(email, password)
-        localStorage.setItem("userInfo", JSON.stringify(infoUser))
         edit(name) // Resgister Flow
-        navigate("/")
+        if (stayLogged === true){
+            localStorage.setItem("userInfo", JSON.stringify(infoUser))
+            navigate("/")
+        } else {
+            navigate("/")
+        }
 
     }
 
@@ -88,6 +92,7 @@ export const AuthProvider : React.FC<React.ReactNode> = ({children}) =>{ // Reso
         }
 
         updateProfile(userUpdated());
+        document.location.reload();
     }
     
     // Return 

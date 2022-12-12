@@ -29,6 +29,7 @@ import {
 } from "./styles/styles";    
 
 import { 
+    HouseLine,
     PencilSimpleLine, 
     SignOut, 
     UserCircleGear 
@@ -84,6 +85,13 @@ export function NavBar() {
                         </DropdownMenu.Trigger>
                         <DropdownMenu.Portal>
                             <DropdownMenu.Content className="DropdownMenuContent" sideOffset={5}>
+                                <DropdownMenu.Item 
+                                className="DropdownMenuItem"
+                                onClick={handleToHome}
+                                >
+                                    Pagina Inicial
+                                    <div className="RightSlot"> <HouseLine /> </div>
+                                </DropdownMenu.Item>
                                 <DropdownMenu.Item 
                                 className="DropdownMenuItem"
                                 onClick={handleEdit}

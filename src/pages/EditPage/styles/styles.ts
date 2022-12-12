@@ -85,9 +85,14 @@ export const FieldButton = styled.div`
         border-radius: 8px;
         padding: 15px 40px;  
         transition: filter 0.3s ;
+        cursor: pointer;
     
         &:hover{
             filter: brightness(0.7);
+        }
+
+        &:disabled{
+          filter: brightness(0.1);
         }
     `
 // Key Frames Radix UI
@@ -168,6 +173,7 @@ button {
   line-height: 1;
   font-weight: 500;
   height: 35px;
+  cursor: pointer;
 }
 .Button.violet {
   background-color: white;

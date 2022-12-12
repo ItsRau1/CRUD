@@ -23,10 +23,11 @@ export function LoginPage(){
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [logged, setLogged] = useState<boolean>(false)
 
     const handleSumit = (e:React.SyntheticEvent) => {
         e.preventDefault();
-        login(email, password);
+        login(email, password, logged);
     }
 
     return (
@@ -56,10 +57,12 @@ export function LoginPage(){
                         placeholder="Sua Senha"
                         required
                     />
+                    <input type="checkbox" onChange={() => setLogged(!logged)}/>
                 </FormField>
                     <FormButton type="submit">
                         Entrar
                     </FormButton>
+
                     <LinkField>
                         <p>Não tem uma conta? </p>
                         <NavLink to="/register" title="Registre-se">

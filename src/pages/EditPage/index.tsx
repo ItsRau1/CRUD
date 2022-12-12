@@ -12,16 +12,35 @@ export function EditPage () {
 
     const [avatar, setAvatar] = useState<string>("")
     const [userName, setUserName] = useState<string>("")
+    const [stateButton, setStateButton] = useState<boolean>(false)
+
+
 
     useEffect(()=>{
         setUserName(user!.user.displayName)
         setAvatar(user!.user.photoURL)
+        if(userName === ""){
+            setStateButton(true)
+        } else {
+            setStateButton(false)
+        }
     },[])
+
+
+    const state = (value:string) => {
+        if(value.length <= 1 ){
+            setStateButton(true)
+        } else {
+            setStateButton(false)
+        }
+    }
 
     const handleEdit = (e:React.SyntheticEvent) =>{
         e.preventDefault();
         edit(userName, avatar)
     }
+
+
 
     return(
         <ContainerEdit>
@@ -44,7 +63,7 @@ export function EditPage () {
                             <EditInput 
                                 type="text"
                                 value={userName}
-                                onChange={(e)=> setUserName(e.target.value)}
+                                onChange={(e)=> {setUserName(e.target.value); state(e.target.value)}}
                                 placeholder="Seu Nome"
                                 required
                             />
@@ -53,7 +72,7 @@ export function EditPage () {
                             <StylesRadixUI />
                             <AlertDialog.Root>
                                 <AlertDialog.Trigger asChild>
-                                    <EditButton
+                                    <EditButton disabled={stateButton}
                                     >
                                         Editar
                                     </EditButton>
