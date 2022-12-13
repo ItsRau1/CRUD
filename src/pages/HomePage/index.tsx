@@ -6,7 +6,7 @@ import { AuthContext} from "../../contexts/auth";
 
 import { 
     ColloredText,
-    ContainerHome, MainContainer, MainGif, MainHeader, 
+    ContainerHome, FormButton, FormContainer, FormField, FormInput, MainContainer, MainContent, MainGif, MainHeader, TitleField, 
 } from "./styles/styles";
 
 import { NavBar } from "../../components/NavBar";
@@ -56,11 +56,25 @@ export function HomePage(){
                 <MainHeader>
                     <h1>Ola <ColloredText>{userName}    </ColloredText> <MainGif src={HiGif}/> <br></br> Como vai? Espero que bem.</h1>
                 </MainHeader>
-                <form onSubmit={handleSubmit}>
-                    <button type="submit">
-                        Clicar
-                    </button>
-                </form>
+                <MainContent>
+                    <TitleField>
+                        <h2>Adicione uma <ColloredText>nova tarefa</ColloredText>.</h2>
+                    </TitleField>
+                    <FormContainer onSubmit={handleSubmit}>
+                        <FormField>
+                            <FormInput 
+                                type="text"
+                                placeholder="Nome da Tarefa"
+                            />
+                        </FormField>
+                        <FormButton     
+                            type="submit"
+                        >
+                            Clicar
+                        </FormButton>
+                    </FormContainer>
+
+                </MainContent>
             </MainContainer>
         </ContainerHome>
     )

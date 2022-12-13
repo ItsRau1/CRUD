@@ -13,7 +13,10 @@ import {
     FormInput, 
     FormTitle, 
     LinkField, 
-    LoginContainer 
+    LoginContainer, 
+    StayLoggedCheckBox, 
+    StayLoggedContainer,
+    StayLoggedText
 } from "./styles/styles";
 
 
@@ -57,7 +60,14 @@ export function LoginPage(){
                         placeholder="Sua Senha"
                         required
                     />
-                    <input type="checkbox" onChange={() => setLogged(!logged)}/>
+                    <StayLoggedContainer>
+                        <StayLoggedCheckBox 
+                            type="checkbox" 
+                            onChange={() => setLogged(!logged)}
+                            id="stayLogged"
+                        />
+                        <StayLoggedText htmlFor="stayLogged">Manter-se conectado</StayLoggedText>
+                    </StayLoggedContainer>
                 </FormField>
                     <FormButton type="submit">
                         Entrar

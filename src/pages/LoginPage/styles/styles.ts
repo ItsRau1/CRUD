@@ -101,3 +101,24 @@ export const LinkField = styled.div`
     font-size: 0.75rem;
     gap: 0.2rem;
 `
+
+export const StayLoggedContainer = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.2rem;
+    padding: 0 0 0 0.5rem;
+`
+
+export const StayLoggedCheckBox = styled.input`
+    cursor: pointer;
+    &:focus{
+        box-shadow: none;
+    }
+`
+
+export const StayLoggedText = styled.label`
+    cursor: pointer;
+    font-size: 12px;
+    
+`
