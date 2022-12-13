@@ -37,6 +37,10 @@ export const TitleField = styled.div`
 
 `
 
+export const ButtonNewTask = styled.button`
+
+`
+
 export const FormContainer = styled.form`
     width: 100%;
     display: flex;

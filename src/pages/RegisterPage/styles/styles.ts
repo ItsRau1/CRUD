@@ -69,6 +69,10 @@ export const FormLabel = styled.label`
 
 `
 
+export const FormFileInput = styled.input`
+
+`
+
 export const FormInput = styled.input`
     width: 100%;
     padding: 15px 20px;

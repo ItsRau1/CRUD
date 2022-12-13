@@ -1,13 +1,25 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { NavLink } from "react-router-dom";
 
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 import { auth } from "../../services/firebaseConfig";
 
 import { 
+    db,
+    storage,
+} from "../../services/firebaseConfig"
+
+import { 
+    ref, 
+    uploadBytesResumable, 
+    getDownloadURL,
+} from "firebase/storage"
+
+import { 
     AsideLabel,
     FormButton, 
     FormField, 
+    FormFileInput, 
     FormInput, 
     FormLabel, 
     FormRegister, 
@@ -28,6 +40,45 @@ export function RegisterPage(){
     const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [ file, setFile ] = useState<any>("")
+
+    useEffect(()=>{
+        const uploadFile = () => {
+            const name = new Date().getTime() + file.name;
+
+            const storageRef = ref(storage, name);
+            const uploadTask = uploadBytesResumable(storageRef, file);
+
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                    const progress = 
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log("Upload is" + progress + "% done");
+                    switch (snapshot.state) {
+                        case "paused":
+                            console.log("Upload is paused");
+                            break;
+                        case "running":
+                            console.log("upload is running");
+                            break;
+                        default:
+                            break;
+                    }
+                },
+                (error) => {
+                    console.log(error);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        console.log(downloadURL)
+                    })
+                }
+            )
+        };
+
+        file && uploadFile();
+    }, [file])
 
 
     const handleSumit = (e:React.SyntheticEvent) => {
@@ -44,6 +95,10 @@ export function RegisterPage(){
                     <p>Venha utilizar o melhor CRUD</p>
                 </FormTitle>
                 <FormField>
+                    <FormFileInput 
+                        type="file" 
+                        onChange={(e) => setFile(e.target.files[0])}
+                    />
                     <FormInput
                         type="text"
                         name="name"

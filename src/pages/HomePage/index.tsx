@@ -1,37 +1,59 @@
-import React, { useContext, useEffect, useState } from "react";
+//  Utils
+import React, 
+    { 
+        useContext, 
+        useEffect, 
+        useState 
+    } 
+from "react";
+
+import { useNavigate } from "react-router-dom";
 
 import { ContextType } from "../../@types/types";
 
 import { AuthContext} from "../../contexts/auth";
 
+import { collection, getDocs } from "firebase/firestore";
 import { 
+    db,
+    storage,
+} from "../../services/firebaseConfig";
+
+import { 
+    ref, 
+    uploadBytesResumable, 
+    getDownloadURL,
+} from "firebase/storage"
+
+
+// Components 
+import { 
+    ButtonNewTask,
     ColloredText,
-    ContainerHome, FormButton, FormContainer, FormField, FormInput, MainContainer, MainContent, MainGif, MainHeader, TitleField, 
+    ContainerHome, 
+    MainContainer, 
+    MainContent, 
+    MainGif, 
+    MainHeader, 
+    TitleField, 
 } from "./styles/styles";
 
 import { NavBar } from "../../components/NavBar";
 
+// Assets
 import HiGif from "./../../assets/hi.gif"
+import { PlusCircle } from "phosphor-react";
 
-import { addDoc, collection, doc, getDocs, serverTimestamp, setDoc } from "firebase/firestore";
-import { db } from "../../services/firebaseConfig";
  
 export function HomePage(){
+
+    const navigate = useNavigate();
 
     const { user } = useContext(AuthContext) as ContextType
 
     const userName = user?.user.displayName
     const userID  = user?.user.uid
 
-    const handleSubmit = async (e:React.SyntheticEvent) => {
-        e.preventDefault();
-        await addDoc(collection(db, `${userID}`),{
-            name: "Mogi das Cruzes",
-            state: "SP",
-            country: "Brazil",
-            timeStamp: serverTimestamp()
-        })
-    };
 
     const [ data, setData ] = useState([])
 
@@ -49,6 +71,10 @@ export function HomePage(){
 
     console.log(data)
 
+    const handleAddNewTask = () => {
+        navigate("/new")
+    }
+
     return(
         <ContainerHome>
             <NavBar />
@@ -60,19 +86,9 @@ export function HomePage(){
                     <TitleField>
                         <h2>Adicione uma <ColloredText>nova tarefa</ColloredText>.</h2>
                     </TitleField>
-                    <FormContainer onSubmit={handleSubmit}>
-                        <FormField>
-                            <FormInput 
-                                type="text"
-                                placeholder="Nome da Tarefa"
-                            />
-                        </FormField>
-                        <FormButton     
-                            type="submit"
-                        >
-                            Clicar
-                        </FormButton>
-                    </FormContainer>
+                        <ButtonNewTask onClick={handleAddNewTask}>
+                            Adicionar uma nova tarefa <PlusCircle />
+                        </ButtonNewTask>
 
                 </MainContent>
             </MainContainer>

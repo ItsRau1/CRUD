@@ -14,6 +14,7 @@ import { AuthProvider, AuthContext } from "./contexts/auth"
 import { RegisterPage } from "./pages/RegisterPage"
 import { LoadingPage } from "./pages/LoadingPage"
 import { EditPage } from "./pages/EditPage"
+import { NewTaskPage } from "./pages/NewTaskPage"
 
 export function AppRoutes () {
     const Private = ({children}:any)=>{
@@ -37,8 +38,9 @@ export function AppRoutes () {
                 <Routes>
                     <Route exact path="/login" element={<LoginPage />}/>
                     <Route exact path="/register" element={<RegisterPage />}/>
-                    <Route exact path="/" element={<Private><HomePage /> </Private>}/>
-                    <Route exact path="/edit" element={<Private><EditPage /> </Private>}/>
+                    <Route exact path="/" element={<Private> <HomePage /> </Private>}/>
+                    <Route exact path="/edit" element={<Private> <EditPage /> </Private>}/>
+                    <Route exact path="/new" element={<Private> <NewTaskPage /> </Private>}/>
                 </Routes>
             </AuthProvider>
         </Router>
