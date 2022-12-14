@@ -13,19 +13,26 @@ import { ContextType } from "../../@types/types";
 
 import { AuthContext} from "../../contexts/auth";
 
-import { collection, getDocs } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { db } from "../../services/firebaseConfig";
 
 // Components 
 import { 
     ButtonNewTask,
+    ButtonsBox,
     ColloredText,
     ContainerHome, 
+    DeletButton, 
+    EditButton, 
     MainContainer, 
     MainContent, 
     MainGif, 
     MainHeader, 
-    TasksBox, 
+    TaskBox, 
+    TaskInfo, 
+    TaskLogo, 
+    TasksContainer, 
+    TextAddNewTasks, 
     TitleField, 
 } from "./styles/styles";
 
@@ -40,13 +47,15 @@ export function HomePage(){
 
     const navigate = useNavigate();
 
-    const { user } = useContext(AuthContext) as ContextType
+    const { user, editTask } = useContext(AuthContext) as ContextType
 
     const userName = user?.user.displayName
     const userID  = user?.user.uid
 
 
     const [ data, setData ] = useState([])
+    const dataLength = data.length > 0
+
 
     useEffect(() => {
         const fetchData = async () =>{
@@ -64,6 +73,16 @@ export function HomePage(){
         navigate("/new")
     }
 
+    const handleDelet = async (id:string) => {
+        await deleteDoc(doc(db, `${userID}`, id))
+        setData(data.filter((item)=> item.id !== id))
+    }
+
+    const handleEdit = (id) => {
+        const taskToChange = (data.filter((item)=> item.id === id))
+        editTask(taskToChange)
+    }
+
     return(
         <ContainerHome>
             <NavBar />
@@ -76,18 +95,33 @@ export function HomePage(){
                         <h2>Adicione uma <ColloredText>nova tarefa</ColloredText>.</h2>
                     </TitleField>
                     <ButtonNewTask onClick={handleAddNewTask}>
-                        Adicionar uma nova tarefa <PlusCircle />
+                        Adicionar uma nova tarefa <PlusCircle size={22}/>
                     </ButtonNewTask>
-                    <TasksBox>
-                        {data.map((task)=>{
-                            return (
-                                <div key={task.id}>
-                                    <img src={task._document.data.value.mapValue.fields.image.stringValue} />
-                                    <p>{task._document.data.value.mapValue.fields.name.stringValue}</p>
-                                </div>
-                            )   
-                        })}
-                    </TasksBox>
+                    <TasksContainer>
+                        { dataLength ?
+                            data.map((task)=>{
+                                return (
+                                    <TaskBox key={task.id} id={task.id}>
+                                        <TaskInfo>
+                                            <TaskLogo src={task._document.data.value.mapValue.fields.image.stringValue} />
+                                            <p>{task._document.data.value.mapValue.fields.name.stringValue}</p>
+                                        </TaskInfo>
+                                        <ButtonsBox>
+                                            <EditButton onClick={(e) => handleEdit(task.id)}>
+                                                Editar
+                                            </EditButton>
+                                            <DeletButton onClick={(e) => handleDelet(task.id)}>
+                                                Deletar
+                                            </DeletButton>
+                                        </ButtonsBox>
+                                    </TaskBox>
+                                )   
+                            }) :
+                            <TextAddNewTasks>
+                                <ColloredText> Adicione Tarefas </ColloredText>
+                            </TextAddNewTasks>
+                        }
+                    </TasksContainer>
                 </MainContent>
             </MainContainer>
         </ContainerHome>

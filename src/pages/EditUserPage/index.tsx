@@ -6,7 +6,7 @@ import { AuthContext } from "../../contexts/auth";
 import { ContextType } from "../../@types/types";
 import  * as AlertDialog  from "@radix-ui/react-alert-dialog";
 
-export function EditPage () {
+export function EditUserPage () {
     
     const { edit, user } = useContext(AuthContext) as ContextType;
 

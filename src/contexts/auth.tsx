@@ -102,11 +102,20 @@ export const AuthProvider : React.FC<React.ReactNode> = ({children}) =>{ // Reso
         updateProfile(userUpdated());
         document.location.reload();
     }
+
+    // Edit Task 
+
+    const [ taskToChange, setTaskToChange ] = useState([])
+
+    function editTask (task) {
+        setTaskToChange(task)
+        navigate("/taskedit")
+    }
     
     // Return 
 
     return (
-        <AuthContext.Provider value={{authenticated: !!user , loading, login, logout, user, register, edit }}>
+        <AuthContext.Provider value={{authenticated: !!user , loading, login, logout, user, register, edit, editTask, taskToChange }}>
             {children}
         </AuthContext.Provider>
     )

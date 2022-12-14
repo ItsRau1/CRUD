@@ -4,7 +4,7 @@ import { GlobalStyle } from "./styles/GlobalStyle"
 
 export default function App() {
   return (
-    <div>
+    <div id="myRoot">
       <GlobalStyle />
       <AppRoutes />
     </div>
