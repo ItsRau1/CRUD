@@ -9,9 +9,6 @@ from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import { ContextType } from "../../@types/types";
-
-import { AuthContext} from "../../contexts/auth";
 
 import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import { db } from "../../services/firebaseConfig";
@@ -42,9 +39,15 @@ import { NavBar } from "../../components/NavBar";
 import HiGif from "./../../assets/hi.gif"
 import { PlusCircle } from "phosphor-react";
 
- 
-export function HomePage(){
+// Context
+import { AuthContext} from "../../contexts/auth";
 
+// Types
+import { ContextType, taskObject } from "../../@types/types";
+
+
+export function HomePage(){
+    
     const navigate = useNavigate();
 
     const { user, editTask } = useContext(AuthContext) as ContextType
@@ -75,11 +78,11 @@ export function HomePage(){
 
     const handleDelet = async (id:string) => {
         await deleteDoc(doc(db, `${userID}`, id))
-        setData(data.filter((item)=> item.id !== id))
+        setData(data.filter((item:taskObject)=> item.id !== id))
     }
 
-    const handleEdit = (id) => {
-        const taskToChange = (data.filter((item)=> item.id === id))
+    const handleEdit = (id:string) => {
+        const taskToChange = (data.filter((item:taskObject)=> item.id === id))
         editTask(taskToChange)
     }
 
@@ -99,7 +102,7 @@ export function HomePage(){
                     </ButtonNewTask>
                     <TasksContainer>
                         { dataLength ?
-                            data.map((task)=>{
+                            data.map((task:taskObject)=>{
                                 return (
                                     <TaskBox key={task.id} id={task.id}>
                                         <TaskInfo>

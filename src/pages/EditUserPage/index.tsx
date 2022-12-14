@@ -1,10 +1,37 @@
-import React, { useContext, useEffect, useState } from "react";
-import { BoxForm, ContainerEdit, EditBox, EditButton, EditInput, FieldButton, FieldInputs, FieldTitle, StylesRadixUI } from "./styles/styles";
-import { NavBar } from "../../components/NavBar";
-import { MainEdit } from "./styles/styles";
+// Utils
+import React,
+    { 
+        useContext, 
+        useEffect, 
+        useState 
+    } 
+from "react";
+
+// Components 
+import { 
+    BoxForm, 
+    ContainerEdit, 
+    EditBox, 
+    EditButton, 
+    EditInput, 
+    FieldButton, 
+    FieldInputs, 
+    FieldTitle, 
+    StylesRadixUI,
+    MainEdit,
+} from "./styles/styles";
+
+import { 
+    NavBar 
+} from "../../components/NavBar";
+
+// Radix UI Components
+import  * as AlertDialog  from "@radix-ui/react-alert-dialog";
+
+// Context 
 import { AuthContext } from "../../contexts/auth";
 import { ContextType } from "../../@types/types";
-import  * as AlertDialog  from "@radix-ui/react-alert-dialog";
+
 
 export function EditUserPage () {
     
@@ -17,8 +44,8 @@ export function EditUserPage () {
 
 
     useEffect(()=>{
-        setUserName(user!.user.displayName)
-        setAvatar(user!.user.photoURL)
+        setUserName(user!.user.displayName!)
+        setAvatar(user!.user.photoURL!)
         if(userName === ""){
             setStateButton(true)
         } else {

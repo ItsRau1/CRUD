@@ -1,6 +1,12 @@
+// Utils
 import React from "react";
-import { TailSpin } from "react-loading-icons";
+
+// Components
 import { LoadingContainer } from "./styles/styles";
+
+// Assets
+import { TailSpin } from "react-loading-icons";
+
 
 export function LoadingPage (){
 

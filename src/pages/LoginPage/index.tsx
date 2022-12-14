@@ -1,10 +1,8 @@
+// Utils
 import React, { useState, useContext } from "react"
 import { NavLink } from "react-router-dom";
 
-import { ContextType } from "../../@types/types";
-
-import { AuthContext } from "../../contexts/auth";
-
+// Components
 import { 
     AsideLabel,
     FormButton, 
@@ -19,6 +17,10 @@ import {
     StayLoggedText
 } from "./styles/styles";
 
+// Context
+import { ContextType } from "../../@types/types";
+
+import { AuthContext } from "../../contexts/auth";
 
 export function LoginPage(){
 

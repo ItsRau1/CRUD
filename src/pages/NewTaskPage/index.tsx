@@ -124,7 +124,7 @@ export function NewTaskPage () {
                         <FormInputFile 
                             id="taskImg"
                             type="file" 
-                            onChange={(e) => setFile(e.target.files[0])}
+                            onChange={(e:React.BaseSyntheticEvent) => setFile(e.target.files[0])}
                             accept="image/*"
                         />
                     </FormField>

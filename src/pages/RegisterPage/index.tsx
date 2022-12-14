@@ -1,11 +1,8 @@
+//Utils
 import React, { useContext, useEffect, useState } from "react"
 import { NavLink } from "react-router-dom";
 
-import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { auth } from "../../services/firebaseConfig";
-
 import { 
-    db,
     storage,
 } from "../../services/firebaseConfig"
 
@@ -15,19 +12,20 @@ import {
     getDownloadURL,
 } from "firebase/storage"
 
+// Components
 import { 
     AsideLabel,
     FormButton, 
     FormField, 
     FormFileInput, 
     FormInput, 
-    FormLabel, 
     FormRegister, 
     FormTitle, 
     LinkField, 
     RegisterContainer 
 } from "./styles/styles";
 
+// Context
 import { AuthContext } from "../../contexts/auth";
 
 import { ContextType } from "../../@types/types";
@@ -97,7 +95,7 @@ export function RegisterPage(){
                 <FormField>
                     <FormFileInput 
                         type="file" 
-                        onChange={(e) => setFile(e.target.files[0])}
+                        onChange={(e:React.BaseSyntheticEvent) => setFile(e.target.files[0])}
                     />
                     <FormInput
                         type="text"

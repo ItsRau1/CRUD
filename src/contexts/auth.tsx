@@ -6,15 +6,20 @@ import {
     useUpdateProfile, 
     useSignOut, 
 } from "react-firebase-hooks/auth";
-import { auth } from "../services/firebaseConfig";
+import { auth, db } from "../services/firebaseConfig";
 
 import { useNavigate } from "react-router-dom";
 
-import { ContextType } from "../@types/types";
+import { ContextType, taskObject } from "../@types/types";
+import { doc, serverTimestamp, updateDoc } from "firebase/firestore";
 
 export const AuthContext = createContext<ContextType | null>(null);
 
-export const AuthProvider : React.FC<React.ReactNode> = ({children}) =>{ // Resolve Children Type //
+type Props = {
+    children?: React.ReactNode
+  };
+
+export const AuthProvider : React.FC<Props> = ({children}) =>{
 
     const navigate = useNavigate();
 
@@ -105,17 +110,27 @@ export const AuthProvider : React.FC<React.ReactNode> = ({children}) =>{ // Reso
 
     // Edit Task 
 
-    const [ taskToChange, setTaskToChange ] = useState([])
+    const [ taskToChange, setTaskToChange ] = useState<Array<taskObject>>([])
 
-    function editTask (task) {
+    function editTask (task:Array<taskObject>) {
         setTaskToChange(task)
         navigate("/taskedit")
+    }
+
+    async function changeTask (userID:string, taskID:string, taskName:string, img:string) {
+        await updateDoc(doc(db, userID, taskID),{
+            name: taskName,
+            image: img, 
+            timeStamp: serverTimestamp(),
+        })  
+
+        document.location.reload()
     }
     
     // Return 
 
     return (
-        <AuthContext.Provider value={{authenticated: !!user , loading, login, logout, user, register, edit, editTask, taskToChange }}>
+        <AuthContext.Provider value={{authenticated: !!user , loading, login, logout, user, register, edit, editTask, taskToChange, changeTask }}>
             {children}
         </AuthContext.Provider>
     )
