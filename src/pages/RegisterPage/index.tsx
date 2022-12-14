@@ -15,13 +15,17 @@ import {
 // Components
 import { 
     AsideLabel,
+    AvatarDefault,
     FormButton, 
     FormField, 
     FormFileInput, 
     FormInput, 
+    FormLabel, 
     FormRegister, 
     FormTitle, 
+    ImageContainer, 
     LinkField, 
+    PrevImage, 
     RegisterContainer 
 } from "./styles/styles";
 
@@ -29,6 +33,7 @@ import {
 import { AuthContext } from "../../contexts/auth";
 
 import { ContextType } from "../../@types/types";
+import { UploadSimple, UserCircleGear } from "phosphor-react";
 
 
 export function RegisterPage(){
@@ -39,6 +44,8 @@ export function RegisterPage(){
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [ file, setFile ] = useState<any>("")
+    const [ progress, setProgress ] = useState<string>("")
+    const [ img, setImg ] = useState<string>("")
 
     useEffect(()=>{
         const uploadFile = () => {
@@ -52,7 +59,7 @@ export function RegisterPage(){
                 (snapshot) => {
                     const progress = 
                         (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    console.log("Upload is" + progress + "% done");
+                        setProgress(progress + "%");
                     switch (snapshot.state) {
                         case "paused":
                             console.log("Upload is paused");
@@ -69,7 +76,7 @@ export function RegisterPage(){
                 },
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                        console.log(downloadURL)
+                        setImg(downloadURL)
                     })
                 }
             )
@@ -81,8 +88,9 @@ export function RegisterPage(){
 
     const handleSumit = (e:React.SyntheticEvent) => {
         e.preventDefault();
-        register(email, password, name);
+        register(email, password, name, img);
     }
+    const avatar = img.length > 5
 
     return (
         <RegisterContainer>
@@ -92,9 +100,17 @@ export function RegisterPage(){
                     <h1>Registre-se</h1>
                     <p>Venha utilizar o melhor CRUD</p>
                 </FormTitle>
+                <ImageContainer>
+                    {avatar ?  <PrevImage src={img} /> : <AvatarDefault><UserCircleGear size={90} color="#004457"/></AvatarDefault>}
+                    <p>{progress}</p>
+                </ImageContainer>
                 <FormField>
+                    <FormLabel htmlFor="avatar">
+                        Adicionar Avatar <UploadSimple />
+                    </FormLabel>
                     <FormFileInput 
                         type="file" 
+                        id="avatar"
                         onChange={(e:React.BaseSyntheticEvent) => setFile(e.target.files[0])}
                     />
                     <FormInput

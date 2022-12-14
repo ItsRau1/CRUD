@@ -47,9 +47,13 @@ export const AuthProvider : React.FC<Props> = ({children}) =>{
     const [createUserWithEmailAndPassword, ] =
     useCreateUserWithEmailAndPassword(auth);
 
-    const register = (email:string, password:string, name:string) => {
+    const register = (email:string, password:string, name:string, avatar:string) => {
         createUserWithEmailAndPassword(email, password);
-        setName(name) // Register Flow
+        const info = {
+            name: name,
+            avatar: avatar,
+        }
+        sessionStorage.setItem("infoUsers", JSON.stringify(info))
         navigate("/login")
     }
 
@@ -62,7 +66,7 @@ export const AuthProvider : React.FC<Props> = ({children}) =>{
     const login:(email:string, password:string, stayLogged:boolean)=>void = (email:string, password:string, stayLogged:boolean) => {
         const infoUser = { email, password }
         signInWithEmailAndPassword(email, password)
-        edit(name) // Resgister Flow
+        preEdit(sessionStorage.getItem("infoUsers"))
         if (stayLogged === true) {
             localStorage.setItem("userInfo", JSON.stringify(infoUser))
         } else {
@@ -79,6 +83,7 @@ export const AuthProvider : React.FC<Props> = ({children}) =>{
     const logout = () => {
         signOut()
         localStorage.removeItem("userInfo")
+        sessionStorage.removeItem("userInfo")
         navigate("/login");
     }
     
@@ -87,7 +92,15 @@ export const AuthProvider : React.FC<Props> = ({children}) =>{
     const [ updateProfile ] = useUpdateProfile(auth)
 
     const [name, setName] = useState<string>("");
+    const [avatar, setAvatar] = useState<string>("");
+
     
+    function preEdit (info:any) {
+        const inf = JSON.parse(info)
+        const name = inf.name
+        const url = inf.avatar;
+        edit(name, url)
+    }
     
     function edit (name:string, url?:string) {
         

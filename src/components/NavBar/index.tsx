@@ -1,3 +1,4 @@
+// Utils
 import 
 React, { 
     useContext, 
@@ -6,17 +7,11 @@ React, {
 } from "react";
 
 import { 
-    AuthContext 
-} from "../../contexts/auth";
-
-import { 
-    ContextType 
-} from "../../@types/types";    
-
-import { 
     useNavigate 
 } from "react-router-dom";
 
+
+// Components 
 import { 
     Avatar, 
     AvatarDefault, 
@@ -28,31 +23,44 @@ import {
     RadixUIStyle 
 } from "./styles/styles";    
 
+// Radix UI Components
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
+
+// Assets 
 import { 
     HouseLine,
     PencilSimpleLine, 
+    PlusCircle, 
     SignOut, 
     UserCircleGear 
 } from "phosphor-react";    
 
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import logo from "./../../assets/full-logo.svg";
+
+// Context
+import { 
+    AuthContext 
+} from "../../contexts/auth";
+
+import { 
+    ContextType 
+} from "../../@types/types";    
 
 
 
 
 export function NavBar() {
-
+    
     const navigate = useNavigate();
-
+    
     const { logout, user } = useContext(AuthContext) as ContextType;
-
+    
     const [userName, setUserName] = useState<string>("")
     
     const avatar = user!.user.photoURL
 
     useEffect(()=>{
-        setUserName(user!.user.displayName)
+        setUserName(user!.user.displayName!)
     },[])
 
 
@@ -69,6 +77,11 @@ export function NavBar() {
     const handleToHome = (e:React.SyntheticEvent) =>{
         e.preventDefault();
         navigate("/")
+    }
+
+    const handleAdd = (e:React.SyntheticEvent) =>{
+        e.preventDefault();
+        navigate("/new")
     }
     
     return (
@@ -98,6 +111,13 @@ export function NavBar() {
                                 >
                                     Editar Perfil
                                     <div className="RightSlot"> <PencilSimpleLine /> </div>
+                                </DropdownMenu.Item>
+                                <DropdownMenu.Item 
+                                className="DropdownMenuItem"
+                                onClick={handleAdd}
+                                >
+                                    Adicionar Tarefa
+                                    <div className="RightSlot"> <PlusCircle /> </div>
                                 </DropdownMenu.Item>
                                 <DropdownMenu.Item 
                                 className="DropdownMenuItem"

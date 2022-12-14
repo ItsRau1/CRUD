@@ -64,13 +64,32 @@ export const FormField = styled.div`
     align-items: center;
     width: 100%;
 `
+export const ImageContainer = styled.div`
+    text-align: center;
+    font-weight: 700; 
+    font-size: 13px;
+    letter-spacing: 1px;
+`
+
+export const PrevImage = styled.img`
+    height: 5rem;
+    width: 5rem;
+    border-radius: 50%;
+
+`
+export const AvatarDefault = styled.div`
+    cursor: pointer;
+    border-radius: 50%;
+    width: 85px;
+    height: 85px;
+`
 
 export const FormLabel = styled.label`
 
 `
 
 export const FormFileInput = styled.input`
-
+    display: none;
 `
 
 export const FormInput = styled.input`
