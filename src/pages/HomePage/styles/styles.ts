@@ -83,3 +83,7 @@ export const FormButton = styled.button`
         background-color: #006989;
     };
 `
+
+export const TasksBox = styled.div`
+
+`

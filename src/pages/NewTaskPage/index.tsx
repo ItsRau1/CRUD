@@ -9,7 +9,7 @@ import {
 import { 
     addDoc, 
     collection, 
-    serverTimestamp 
+    serverTimestamp,
 } from "firebase/firestore"
 
 import { 
@@ -25,11 +25,30 @@ import { AuthContext } from "../../contexts/auth"
 
 // Components
 import { NavBar } from "../../components/NavBar"
-import { NewTaskContainer } from "./styles/styles"
+import { 
+    FormButton, 
+    FormContainer, 
+    FormField, 
+    FormFieldButton, 
+    FormInput, 
+    FormInputFile, 
+    FormLabelFile, 
+    ImageContainer, 
+    MainContainer, 
+    NewTaskContainer, 
+    PrevImage,
+    TitleField
+} from "./styles/styles"
+import { UploadSimple } from "phosphor-react"
 
 export function NewTaskPage () {
 
     const [ file, setFile ] = useState<any>("")
+    const [ taskName, setTaskName ] = useState<string>("")
+    const [ img, setImg ] = useState<string>("https://i1.sndcdn.com/artworks-000161106004-s4jn4h-t500x500.jpg")
+    const [ progress, setProgress ] = useState<string>("")
+
+
 
     useEffect(()=>{
         const uploadFile = () => {
@@ -43,7 +62,7 @@ export function NewTaskPage () {
                 (snapshot) => {
                     const progress = 
                         (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    console.log("Upload is" + progress + "% done");
+                    setProgress(progress + "%");
                     switch (snapshot.state) {
                         case "paused":
                             console.log("Upload is paused");
@@ -60,7 +79,7 @@ export function NewTaskPage () {
                 },
                 () => {
                     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                        console.log(downloadURL)
+                        setImg(downloadURL)
                     })
                 }
             )
@@ -71,28 +90,63 @@ export function NewTaskPage () {
 
     const { user } = useContext(AuthContext) as ContextType
 
-    const userName = user?.user.displayName
     const userID  = user?.user.uid
 
 
     const handleSubmit = async (e:React.SyntheticEvent) => {
         e.preventDefault();
         await addDoc(collection(db, `${userID}`),{
-            name: "Mogi das Cruzes",
-            state: "SP",
-            country: "Brazil",
-            timeStamp: serverTimestamp()
+            name: taskName,
+            image: img,
+            timeStamp: serverTimestamp(),
         })
+
+        document.location.reload()
     };
 
     
     return (
         <NewTaskContainer>
             <NavBar />
-            <input 
-                type="file" 
-                onChange={(e) => setFile(e.target.files[0])}
-            />
+            <MainContainer>
+                <ImageContainer>
+                    <PrevImage src={img} />
+                    <p>{progress}</p>
+                </ImageContainer>
+                <FormContainer onSubmit={handleSubmit}>
+                    <TitleField>
+                        <h1>Adicionar uma nova tarefa</h1>
+                    </TitleField>
+                    <FormField>
+                        <FormLabelFile htmlFor="taskImg">
+                            Adicionar Imagem <UploadSimple />
+                        </FormLabelFile>
+                        <FormInputFile 
+                            id="taskImg"
+                            type="file" 
+                            onChange={(e) => setFile(e.target.files[0])}
+                            accept="image/*"
+                        />
+                    </FormField>
+                    <FormField>
+                        <FormInput
+                            type="text"
+                            name="name"
+                            placeholder="Nome de sua tarefa"
+                            title="Insira o nome de sua tarefa"
+                            onChange={(e)=> setTaskName(e.target.value)}
+                            required
+                        />
+                    </FormField>
+                    <FormFieldButton>
+                        <FormButton
+                            type="submit"
+                        >
+                            Adicionar tarefa
+                        </FormButton>
+                    </FormFieldButton>
+                </FormContainer>
+            </MainContainer>
         </NewTaskContainer>
     )
 }

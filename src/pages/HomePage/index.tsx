@@ -14,17 +14,7 @@ import { ContextType } from "../../@types/types";
 import { AuthContext} from "../../contexts/auth";
 
 import { collection, getDocs } from "firebase/firestore";
-import { 
-    db,
-    storage,
-} from "../../services/firebaseConfig";
-
-import { 
-    ref, 
-    uploadBytesResumable, 
-    getDownloadURL,
-} from "firebase/storage"
-
+import { db } from "../../services/firebaseConfig";
 
 // Components 
 import { 
@@ -35,12 +25,13 @@ import {
     MainContent, 
     MainGif, 
     MainHeader, 
+    TasksBox, 
     TitleField, 
 } from "./styles/styles";
 
 import { NavBar } from "../../components/NavBar";
 
-// Assets
+// Assets 
 import HiGif from "./../../assets/hi.gif"
 import { PlusCircle } from "phosphor-react";
 
@@ -69,8 +60,6 @@ export function HomePage(){
         fetchData()
     },[])
 
-    console.log(data)
-
     const handleAddNewTask = () => {
         navigate("/new")
     }
@@ -86,10 +75,19 @@ export function HomePage(){
                     <TitleField>
                         <h2>Adicione uma <ColloredText>nova tarefa</ColloredText>.</h2>
                     </TitleField>
-                        <ButtonNewTask onClick={handleAddNewTask}>
-                            Adicionar uma nova tarefa <PlusCircle />
-                        </ButtonNewTask>
-
+                    <ButtonNewTask onClick={handleAddNewTask}>
+                        Adicionar uma nova tarefa <PlusCircle />
+                    </ButtonNewTask>
+                    <TasksBox>
+                        {data.map((task)=>{
+                            return (
+                                <div key={task.id}>
+                                    <img src={task._document.data.value.mapValue.fields.image.stringValue} />
+                                    <p>{task._document.data.value.mapValue.fields.name.stringValue}</p>
+                                </div>
+                            )   
+                        })}
+                    </TasksBox>
                 </MainContent>
             </MainContainer>
         </ContainerHome>
