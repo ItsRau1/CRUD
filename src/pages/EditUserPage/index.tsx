@@ -19,6 +19,11 @@ import {
     FieldTitle, 
     StylesRadixUI,
     MainEdit,
+    ImageContainer,
+    PrevImage,
+    AvatarDefault,
+    FormLabel,
+    FormFileInput,
 } from "./styles/styles";
 
 import { 
@@ -31,27 +36,70 @@ import  * as AlertDialog  from "@radix-ui/react-alert-dialog";
 // Context 
 import { AuthContext } from "../../contexts/auth";
 import { ContextType } from "../../@types/types";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { storage } from "../../services/firebaseConfig";
+import { UploadSimple, UserCircleGear } from "phosphor-react";
 
 
 export function EditUserPage () {
     
     const { edit, user } = useContext(AuthContext) as ContextType;
 
-    const [avatar, setAvatar] = useState<string>("")
     const [userName, setUserName] = useState<string>("")
     const [stateButton, setStateButton] = useState<boolean>(false)
+    const [ progress, setProgress ] = useState<string>("")
+    const [ file, setFile ] = useState<any>("")
+    const [ img, setImg ] = useState<string>("")
 
 
 
     useEffect(()=>{
         setUserName(user!.user.displayName!)
-        setAvatar(user!.user.photoURL!)
+        setImg(user!.user.photoURL!)
         if(userName === ""){
             setStateButton(true)
         } else {
             setStateButton(false)
         }
     },[])
+
+    useEffect(()=>{
+        const uploadFile = () => {
+            const name = new Date().getTime() + file.name;
+
+            const storageRef = ref(storage, name);
+            const uploadTask = uploadBytesResumable(storageRef, file);
+
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                    const progress = 
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                        setProgress(progress + "%");
+                    switch (snapshot.state) {
+                        case "paused":
+                            console.log("Upload is paused");
+                            break;
+                        case "running":
+                            console.log("upload is running");
+                            break;
+                        default:
+                            break;
+                    }
+                },
+                (error) => {
+                    console.log(error);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        setImg(downloadURL)
+                    })
+                }
+            )
+        };
+
+        file && uploadFile();
+    }, [file])
 
 
     const state = (value:string) => {
@@ -64,9 +112,10 @@ export function EditUserPage () {
 
     const handleEdit = (e:React.SyntheticEvent) =>{
         e.preventDefault();
-        edit(userName, avatar)
+        edit(userName, img)
     }
 
+    const avatar = img.length > 5
 
 
     return(
@@ -80,12 +129,18 @@ export function EditUserPage () {
                     <BoxForm onSubmit={handleEdit}>
                         <FieldInputs>
                             <p>URL da imagem que deseja que seja seu avatar (Opcional)</p>
-                            <EditInput 
-                                type="url"
-                                value={avatar}
-                                onChange={(e)=> setAvatar(e.target.value)}
-                                placeholder="URL do Avatar"
-                            />
+                            <ImageContainer>
+                                {avatar ?  <PrevImage src={img} /> : <AvatarDefault><UserCircleGear size={90} color="#004457"/></AvatarDefault>}
+                                <p>{progress}</p>
+                            </ImageContainer>
+                                <FormLabel htmlFor="avatar">
+                                    Adicionar Avatar <UploadSimple />
+                                </FormLabel>
+                                <FormFileInput 
+                                    type="file" 
+                                    id="avatar"
+                                    onChange={(e:React.BaseSyntheticEvent) => setFile(e.target.files[0])}
+                                />
                             <p>Atualize seu nome</p>
                             <EditInput 
                                 type="text"

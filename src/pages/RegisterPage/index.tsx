@@ -43,9 +43,9 @@ export function RegisterPage(){
     const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [ file, setFile ] = useState<any>("")
     const [ progress, setProgress ] = useState<string>("")
     const [ img, setImg ] = useState<string>("")
+    const [ file, setFile ] = useState<any>("")
 
     useEffect(()=>{
         const uploadFile = () => {

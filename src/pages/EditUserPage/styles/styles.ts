@@ -95,6 +95,46 @@ export const FieldButton = styled.div`
           filter: brightness(0.1);
         }
     `
+
+export const ImageContainer = styled.div`
+    text-align: center;
+    font-weight: 700; 
+    font-size: 13px;
+    letter-spacing: 1px;
+`
+
+export const PrevImage = styled.img`
+    height: 5rem;
+    width: 5rem;
+    border-radius: 50%;
+
+`
+
+export const AvatarDefault = styled.div`
+    cursor: pointer;
+    border-radius: 50%;
+    width: 85px;
+    height: 85px;
+`
+
+export const FormLabel = styled.label`
+  margin: 0 0 1rem 0;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  transition: color 0.2s;
+  justify-content: center;
+  
+  &:hover{
+      color: #006989;
+  }
+
+`
+
+export const FormFileInput = styled.input`
+    display: none;
+`
 // Key Frames Radix UI
 
 const contentShow = keyframes`

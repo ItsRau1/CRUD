@@ -100,6 +100,7 @@ export const AuthProvider : React.FC<Props> = ({children}) =>{
         const name = inf.name
         const url = inf.avatar;
         edit(name, url)
+        sessionStorage.removeItem("infoUsers")
     }
     
     function edit (name:string, url?:string) {
