@@ -8,6 +8,7 @@ export const ContainerEdit = styled.div`
     gap: 2rem;
 
     background-color: #EAEBED;
+
 `
 
 export const MainEdit = styled.main`
@@ -15,6 +16,10 @@ export const MainEdit = styled.main`
     display: flex;
     justify-content: center;
     align-items: center;
+    
+    @media (max-width: 768px) {
+        padding: 0 1rem;
+    }
 `
 
 export const EditBox = styled.div`
