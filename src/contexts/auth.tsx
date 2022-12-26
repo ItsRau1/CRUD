@@ -66,7 +66,8 @@ export const AuthProvider : React.FC<Props> = ({children}) =>{
     const login:(email:string, password:string, stayLogged:boolean)=>void = (email:string, password:string, stayLogged:boolean) => {
         const infoUser = { email, password }
         signInWithEmailAndPassword(email, password)
-        preEdit(sessionStorage.getItem("infoUsers"))
+        const toEdit = sessionStorage.getItem("infoUsers")
+        if (toEdit) { preEdit(toEdit) }
         if (stayLogged === true) {
             localStorage.setItem("userInfo", JSON.stringify(infoUser))
         } else {

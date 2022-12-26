@@ -45,7 +45,7 @@ export function NewTaskPage () {
 
     const [ file, setFile ] = useState<any>("")
     const [ taskName, setTaskName ] = useState<string>("")
-    const [ img, setImg ] = useState<string>("https://i1.sndcdn.com/artworks-000161106004-s4jn4h-t500x500.jpg")
+    const [ img, setImg ] = useState<string>("https://i.ibb.co/wY11Fq8/octopus-extends.png")
     const [ progress, setProgress ] = useState<string>("")
 
 

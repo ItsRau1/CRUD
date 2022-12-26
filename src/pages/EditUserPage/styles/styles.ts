@@ -93,6 +93,7 @@ export const FieldButton = styled.div`
 
         &:disabled{
           filter: brightness(0.1);
+          cursor: not-allowed;
         }
     `
 

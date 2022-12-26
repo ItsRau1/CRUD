@@ -6,9 +6,10 @@ export const ContainerHome = styled.div`
     align-items: center;
     gap: 2rem;
     height: 100%;
-
+    padding: 0 0 3rem;
     background-color: #EAEBED;
-`
+
+    `
 
 export const MainContainer = styled.div`
     height: 100%;
@@ -17,6 +18,7 @@ export const MainContainer = styled.div`
     flex-direction: column;
     gap: 3rem;
     padding: 0 3rem 3rem;
+    background-color: #EAEBED;
 `
 
 export const MainHeader = styled.div`

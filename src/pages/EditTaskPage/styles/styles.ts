@@ -104,6 +104,7 @@ export const FormButton = styled.button`
     color: #fff;
     background-color: #272c2e;
     transition: background-color 0.4s;
+    cursor: pointer;
 
     &:hover {
         background-color: #006989;

@@ -14,11 +14,17 @@ export const GlobalStyle = createGlobalStyle`
         box-shadow: 0 0 0 2px #006989;
     }
 
-    html, body{
+    html{
+        height: 100%;
+    }
+
+    body{
         height: 100%;
         width: 100%;        
         -webkit-font-smoothing: antialiased;
     }
+
+
     #root, #myRoot {
         height: 100%;
     }

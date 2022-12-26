@@ -113,11 +113,11 @@ export function EditTaskPage () {
                 </ImageContainer>
                 <FormContainer onSubmit={handleUpdate}>
                     <TitleField>
-                        <h1>Adicionar uma nova tarefa</h1>
+                        <h1>Atualizar esta tarefa</h1>
                     </TitleField>
                     <FormField>
                         <FormLabelFile htmlFor="taskImg">
-                            Adicionar Imagem <UploadSimple />
+                            Atualizar Imagem <UploadSimple />
                         </FormLabelFile>
                         <FormInputFile 
                             id="taskImg"
@@ -141,7 +141,7 @@ export function EditTaskPage () {
                         <FormButton
                             type="submit"
                         >
-                            Adicionar tarefa
+                            Atualizar tarefa
                         </FormButton>
                     </FormFieldButton>
                 </FormContainer>
