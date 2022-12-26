@@ -11,6 +11,7 @@ export type ContextType = {
     editTask: (task:Array<taskObject>) => void;
     taskToChange: Array<taskObject>;
     changeTask: (userID:string, taskID:string, taskName:string, img:string) => void;
+    newTask: (userID:string, taskName:string, img:string) => void;
 }
 
 export type taskObject =  {

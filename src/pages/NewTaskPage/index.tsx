@@ -88,20 +88,14 @@ export function NewTaskPage () {
         file && uploadFile();
     }, [file])
 
-    const { user } = useContext(AuthContext) as ContextType
+    const { user, newTask } = useContext(AuthContext) as ContextType
 
-    const userID  = user?.user.uid
+    const userID  = user?.user.uid!
 
 
-    const handleSubmit = async (e:React.SyntheticEvent) => {
+    const handleSubmit = (e:React.SyntheticEvent) => {
         e.preventDefault();
-        await addDoc(collection(db, `${userID}`),{
-            name: taskName,
-            image: img,
-            timeStamp: serverTimestamp(),
-        })
-
-        document.location.reload()
+        newTask(userID, taskName, img)
     };
 
     

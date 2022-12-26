@@ -11,7 +11,7 @@ import { auth, db } from "../services/firebaseConfig";
 import { useNavigate } from "react-router-dom";
 
 import { ContextType, taskObject } from "../@types/types";
-import { doc, serverTimestamp, updateDoc } from "firebase/firestore";
+import { addDoc, collection, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 
 export const AuthContext = createContext<ContextType | null>(null);
 
@@ -120,8 +120,21 @@ export const AuthProvider : React.FC<Props> = ({children}) =>{
         }
 
         updateProfile(userUpdated());
-        document.location.reload();
+        navigate("/")
     }
+
+    // New Task 
+
+    async function newTask (userID:string, taskName:string, img:string){
+        await addDoc(collection(db, userID),{
+            name: taskName,
+            image: img,
+            timeStamp: serverTimestamp(),
+        })
+
+        navigate("/")
+    };
+
 
     // Edit Task 
 
@@ -145,7 +158,7 @@ export const AuthProvider : React.FC<Props> = ({children}) =>{
     // Return 
 
     return (
-        <AuthContext.Provider value={{authenticated: !!user , loading, login, logout, user, register, edit, editTask, taskToChange, changeTask }}>
+        <AuthContext.Provider value={{authenticated: !!user , loading, login, logout, user, register, edit, newTask, editTask, taskToChange, changeTask }}>
             {children}
         </AuthContext.Provider>
     )
