@@ -46,7 +46,7 @@ export const FormRegister = styled.form`
     border-radius: 30px;
 
     @media (max-width: 768px) {
-        width: auto;
+        width: 100%;
         padding: 2rem 2rem 5rem;
     }
 
