@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const LoginContainer = styled.div`
-    height: 100vh;
+    height: 100%;
     padding: 5rem 0;
 
     display: flex;
@@ -10,6 +10,10 @@ export const LoginContainer = styled.div`
     text-align: center;
 
     background-color: #EAEBED;
+
+    @media (max-width: 768px) {
+        padding: 3rem 2rem;
+    }
 `
 
 export const AsideLabel = styled.div`
@@ -42,7 +46,7 @@ export const FormContainer = styled.form`
     border-radius: 30px;
 
     @media (max-width: 768px) {
-        width: auto;
+        width: 100%;
         padding: 3rem 2rem;
     }
 
