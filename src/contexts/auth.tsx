@@ -139,7 +139,7 @@ export const AuthProvider : React.FC<Props> = ({children}) =>{
             timeStamp: serverTimestamp(),
         })  
 
-        document.location.reload()
+        navigate("/")
     }
     
     // Return 
