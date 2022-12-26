@@ -5,10 +5,14 @@ export const NewTaskContainer = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 2rem;
-    height: 100vh;
+    height: 100%;
     width: 100%;
 
     background-color: #EAEBED;
+
+    @media (max-width: 768px) {
+        gap: 1rem;
+    }
 `
 
 export const MainContainer = styled.div`
@@ -19,6 +23,15 @@ export const MainContainer = styled.div`
     width: 100%;
     gap: 10rem;
     padding: 1rem 5rem 3rem;
+
+    background-color: #EAEBED;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        height: auto;
+        gap: 1rem;
+        padding: 0 1rem 2rem;
+    }
 `
 
 export const ImageContainer = styled.div`
@@ -28,6 +41,10 @@ export const ImageContainer = styled.div`
     font-weight: 700; 
     font-size: 13px;
     letter-spacing: 1px;
+
+    @media (max-width: 768px) {
+        padding: 0;
+    }
 `
 
 export const PrevImage = styled.img`
@@ -50,6 +67,9 @@ export const FormContainer = styled.form`
     background: #fff;
     box-shadow: 5px 5px 15px 2px rgba(0, 0, 0, 0.2);
 
+    @media (max-width: 768px) {
+        width: 100%;
+    }
 `
 
 export const FormLabelFile = styled.label`
@@ -63,6 +83,7 @@ export const FormLabelFile = styled.label`
     &:hover{
         color: #006989;
     }
+
 `
 
 export const FormInputFile = styled.input`
@@ -81,6 +102,10 @@ export const FormInput = styled.input`
 
     &:hover{
         border: 1px solid #006989;
+    }
+
+    @media (max-width: 768px) {
+        width: 100%;
     }
 `
 
