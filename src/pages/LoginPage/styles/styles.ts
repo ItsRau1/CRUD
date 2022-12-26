@@ -21,6 +21,10 @@ export const AsideLabel = styled.div`
     z-index: 99999;
 
     border-radius: 30px;
+
+    @media (max-width: 768px) {
+        display: none;
+    }
 `
 
 export const FormContainer = styled.form`
@@ -36,6 +40,11 @@ export const FormContainer = styled.form`
     width: 30%;
     padding: 3rem 1rem 0.5rem 65px;
     border-radius: 30px;
+
+    @media (max-width: 768px) {
+        width: auto;
+        padding: 3rem 2rem;
+    }
 
     a{
         text-decoration: none;

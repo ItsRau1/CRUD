@@ -23,9 +23,7 @@ export function AppRoutes () {
 
         if(loading){
             return <LoadingPage />
-        }
-
-        if (!authenticated){
+        } else if (!authenticated){
             return <Navigate to="/login"/>
         }
 
