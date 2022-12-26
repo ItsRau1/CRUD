@@ -167,6 +167,12 @@ export const RadixUIStyle = createGlobalStyle`
         animation-duration: 400ms;
         animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
         will-change: transform, opacity;
+
+        
+        @media (max-width: 768px) {
+            width: 375px;
+        }
+
     }
     .DropdownMenuContent[data-side='top'],
     .DropdownMenuSubContent[data-side='top'] {
@@ -201,6 +207,10 @@ export const RadixUIStyle = createGlobalStyle`
         padding-left: 25px;
         user-select: none;
         outline: none;
+
+        @media (max-width: 768px) {
+            height: 50px;
+        }
     }
     .DropdownMenuSubTrigger[data-state='open'] {
         background-color: var(--violet4);
