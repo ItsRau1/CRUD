@@ -37,12 +37,12 @@ export function AppRoutes () {
         <Router>
             <AuthProvider>
                 <Routes>
-                    <Route exact path="/login" element={<LoginPage />}/>
-                    <Route exact path="/register" element={<RegisterPage />}/>
-                    <Route exact path="/" element={<Private> <HomePage /> </Private>}/>
-                    <Route exact path="/edit" element={<Private> <EditUserPage /> </Private>}/>
-                    <Route exact path="/new" element={<Private> <NewTaskPage /> </Private>}/>
-                    <Route exact path="/taskedit" element={<Private> <EditTaskPage /> </Private>}/>
+                    <Route path="/login" element={<LoginPage />}/>
+                    <Route path="/register" element={<RegisterPage />}/>
+                    <Route path="/" element={<Private> <HomePage /> </Private>}/>
+                    <Route path="/edit" element={<Private> <EditUserPage /> </Private>}/>
+                    <Route path="/new" element={<Private> <NewTaskPage /> </Private>}/>
+                    <Route path="/taskedit" element={<Private> <EditTaskPage /> </Private>}/>
                 </Routes>
             </AuthProvider>
         </Router>
