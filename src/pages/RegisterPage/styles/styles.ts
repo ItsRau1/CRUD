@@ -10,6 +10,10 @@ export const RegisterContainer = styled.div`
     text-align: center;
 
     background-color: #EAEBED;
+
+    @media (max-width: 768px) {
+        padding: 3rem 2rem;
+    }
 `
 
 export const AsideLabel = styled.div`
