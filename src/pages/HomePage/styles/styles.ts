@@ -19,6 +19,11 @@ export const MainContainer = styled.div`
     gap: 3rem;
     padding: 0 3rem 3rem;
     background-color: #EAEBED;
+
+    @media (max-width: 768px) {
+        height: auto;
+        padding: 0 1rem 2rem;
+    }
 `
 
 export const MainHeader = styled.div`
@@ -99,6 +104,10 @@ export const TasksContainer = styled.div`
     border-radius: 30px;
     width: 60%;
     box-shadow: 3px 3px 10px 2px rgba(0, 0, 0, 0.1);
+
+    @media (max-width: 768px) {
+        width: 100%;
+    }
 `
 
 export const TaskBox = styled.div`
@@ -108,6 +117,12 @@ export const TaskBox = styled.div`
     background-color:  #EAEBED;
     padding: 0.5rem 1rem;;
     border-radius: 12px;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
 `
 export const TaskInfo = styled.div`
     display: flex;
@@ -126,6 +141,11 @@ export const TaskLogo = styled.img`
 export const ButtonsBox = styled.div`
     display: flex;
     gap: 2rem;
+
+    @media (max-width: 768px) {
+        width: 100%;
+        justify-content: center;
+    }
 `
 
 export const EditButton = styled.button`
