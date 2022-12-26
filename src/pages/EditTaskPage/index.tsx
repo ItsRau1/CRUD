@@ -21,6 +21,7 @@ import {
 
 // Components
 import { 
+    EditTaskContainer,
     FormButton, 
     FormContainer, 
     FormField, 
@@ -30,7 +31,6 @@ import {
     FormLabelFile, 
     ImageContainer, 
     MainContainer, 
-    NewTaskContainer, 
     PrevImage,
     TitleField
 } from "./styles/styles"
@@ -104,7 +104,7 @@ export function EditTaskPage () {
 
     
     return (
-        <NewTaskContainer>
+        <EditTaskContainer>
             <NavBar />
             <MainContainer>
                 <ImageContainer>
@@ -146,6 +146,6 @@ export function EditTaskPage () {
                     </FormFieldButton>
                 </FormContainer>
             </MainContainer>
-        </NewTaskContainer>
+        </EditTaskContainer>
     )
 }
