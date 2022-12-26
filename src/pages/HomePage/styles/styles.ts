@@ -135,6 +135,7 @@ export const TaskInfo = styled.div`
 
 export const TaskLogo = styled.img`
     height: 3rem;
+    width: 3rem;
     border-radius: 50%;
 `
 
