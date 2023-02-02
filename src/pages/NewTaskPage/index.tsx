@@ -1,16 +1,9 @@
 // Utils
 import React, { useContext, useEffect, useState } from "react"
 
-import { 
-    db,
+import {
     storage,
 } from "../../services/firebaseConfig"
-
-import { 
-    addDoc, 
-    collection, 
-    serverTimestamp,
-} from "firebase/firestore"
 
 import { 
     ref, 
