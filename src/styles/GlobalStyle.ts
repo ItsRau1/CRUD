@@ -25,7 +25,6 @@ export const GlobalStyle = createGlobalStyle`
         -webkit-font-smoothing: antialiased;
     }
 
-
     #root, #myRoot {
         height: 100%;
     }
