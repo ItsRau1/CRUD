@@ -117,6 +117,7 @@ export const PrevImage = styled.img`
 `
 
 export const AvatarDefault = styled.div`
+    margin: 0 auto;
     cursor: pointer;
     border-radius: 50%;
     width: 85px;

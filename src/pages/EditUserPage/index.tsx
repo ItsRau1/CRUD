@@ -115,7 +115,7 @@ export function EditUserPage () {
         edit(userName, img)
     }
 
-    const avatar = img.length > 5
+    const avatar = img ? img.length > 5 ? true : false : false
 
 
     return(
